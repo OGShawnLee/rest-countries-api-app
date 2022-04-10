@@ -30,4 +30,6 @@
 	};
 </script>
 
-<slot {go} {pages} {totalPages} />
+{#if totalPages > 1}
+	<slot {go} {pages} {totalPages} />
+{/if}
