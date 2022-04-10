@@ -77,3 +77,5 @@ interface CountryShort
 	extends Pick<Country, 'alpha3Code' | 'capital' | 'flag' | 'independent' | 'name' | 'region'> {
 	population: string;
 }
+
+type CountryBorder = Pick<Country, 'alpha3Code' | 'name'>;
