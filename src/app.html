@@ -5,9 +5,16 @@
 		<meta name="description" content="" />
 		<link rel="icon" href="%svelte.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
 		%svelte.head%
 	</head>
-	<body>
-		<div>%svelte.body%</div>
+	<body class="min-h-screen | bg-blue-800 text-white font-nunito">
+		<div class="mt-24 mb-12">%svelte.body%</div>
 	</body>
 </html>
