@@ -2,7 +2,7 @@
 	export let country: CountryShort;
 </script>
 
-<article class="bg-blue-700 rounded-lg rounded-b-lg shadow-lg outline-none">
+<article class="sm:h-108 bg-blue-700 rounded-lg rounded-b-lg shadow-lg outline-none">
 	<a sveltekit:prefetch href="/{country.alpha3Code}" aria-label="View {country.name} details">
 		<img
 			class="h-40 w-full object-cover object-center rounded-t-lg"
