@@ -73,7 +73,7 @@ interface CountryDetails
 	population: string;
 }
 
-type CountryShort = Pick<
-	CountryDetails,
-	'alpha3Code' | 'capital' | 'flag' | 'independent' | 'name' | 'population' | 'region'
->;
+interface CountryShort
+	extends Pick<Country, 'alpha3Code' | 'capital' | 'flag' | 'independent' | 'name' | 'region'> {
+	population: string;
+}
