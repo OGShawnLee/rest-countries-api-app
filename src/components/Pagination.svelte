@@ -8,9 +8,10 @@
 </script>
 
 <Pagination {items} bind:currentPage {pageSize} {limit} let:pages let:go>
-	<div
+	<section
 		class="fixed bottom-0 h-12 left-0 right-0 | dark:bg-blue-700 bg-white md:(static dark:bg-transparent)"
 	>
+		<h2 class="sr-only">Pagination</h2>
 		<div class="h-full w-11/12 max-w-md mx-auto | flex items-center justify-between gap-3">
 			<button
 				class="focus-ring focus:dark:ring-offset-blue-800"
@@ -51,7 +52,7 @@
 				<i class="bx bx-chevrons-right text-2xl" />
 			</button>
 		</div>
-	</div>
+	</section>
 </Pagination>
 
 <style>

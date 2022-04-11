@@ -28,8 +28,8 @@
 					{country.name}
 				</h1>
 			</header>
-			<section class="flex flex-col gap-12" aria-labelledby="country-details-section-label">
-				<span class="sr-only" id="country-details-section-label">Country Details</span>
+			<section class="flex flex-col gap-12">
+				<h2 class="sr-only">Country Details</h2>
 				<div class="flex flex-col sm:(flex-row justify-between) gap-6">
 					<dl class="flex flex-col gap-2">
 						<div class="flex gap-1">

@@ -32,11 +32,8 @@
 	export let region: string | null;
 </script>
 
-<section
-	class="w-11/12 max-w-8xl mx-auto | flex flex-col md:flex-row gap-8 justify-between"
-	aria-labelledby="filters-label"
->
-	<span class="sr-only" id="filters-label">Countries Filters</span>
+<section class="w-11/12 max-w-8xl mx-auto | flex flex-col md:flex-row gap-8 justify-between">
+	<h2 class="sr-only" id="filters-label">Countries Filters</h2>
 	<div
 		class="relative w-full md:max-w-lg | dark:bg-blue-700 bg-gray-98 rounded-lg transform hover:scale-105"
 	>

@@ -32,10 +32,10 @@
 </svelte:head>
 
 <main class="flex flex-col items-center gap-12">
+	<h1 class="sr-only">All Countries</h1>
 	<Filters bind:name bind:region />
 	<div class="max-w-xs sm:(w-11/12 max-w-8xl) mx-auto | flex flex-col gap-12">
-		<section>
-			<h1 class="sr-only">All Countries</h1>
+		<div>
 			<ul class="grid gap-8 sm:grid-cols-2 lg:(grid-cols-3 gap-12) xl:grid-cols-4">
 				{#each paginated as country, index (index)}
 					<li>
@@ -43,7 +43,7 @@
 					</li>
 				{/each}
 			</ul>
-		</section>
+		</div>
 		<Pagination bind:currentPage items={filteredCountries} pageSize={16} />
 	</div>
 </main>
