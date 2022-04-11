@@ -48,4 +48,8 @@
 		content: '';
 		@apply absolute inset-0 pointer-events-auto;
 	}
+
+	article {
+		@apply transform hover:scale-105 focus-within:scale-110;
+	}
 </style>
