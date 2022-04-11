@@ -1,22 +1,24 @@
 # Frontend Mentor - REST Countries API with color theme switcher solution
 
-This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
+- [Frontend Mentor - REST Countries API with color theme switcher solution](#frontend-mentor---rest-countries-api-with-color-theme-switcher-solution)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+    - [The challenge](#the-challenge)
+    - [Screenshot](#screenshot)
+    - [Links](#links)
+  - [My process](#my-process)
+    - [Built with](#built-with)
+    - [What I learned](#what-i-learned)
+      - [Color Theme](#color-theme)
+      - [List Filtering](#list-filtering)
+      - [Pagination](#pagination)
+    - [Useful resources](#useful-resources)
+  - [Author](#author)
+  - [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -29,87 +31,259 @@ Users should be able to:
 - Filter countries by region
 - Click on a country to see more detailed information on a separate page
 - Click through to the border countries on the detail page
-- Toggle the color scheme between light and dark mode *(optional)*
+- Toggle the color scheme between light and dark mode _(optional)_
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![Dark Home Page Desktop](./screenshots/screenshot-desktop-home.png)
+![Dark Details Page Desktop](./screenshots/screenshot-desktop-details.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [To be added](https://your-solution-url.com)
+- Live Site URL: [Deployed on Vercel](https://rest-countries-api-app-sigma.vercel.app/)
 
 ## My process
 
 ### Built with
 
+- Responsive Design
 - Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- Svelte + Sveltekit
+- TypeScript
+- WindiCSS
+- Vitest
+- Vite
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+#### Color Theme
 
-To see how you can add code snippets, see below:
+I had to come up with a color theme implementation. I solved it by creating a custom Svelte store.
+
+```ts
+export function useDarkTheme(initialValue: ColorTheme, localStorageKey: string) {
+	const { subscribe, set, update } = writable(initialValue, (set) => {
+		if (browser) {
+			const theme = localStorage.getItem(localStorageKey);
+			switch (theme) {
+				case 'DARK': {
+					set('DARK');
+					setDarkTheme();
+					break;
+				}
+				case 'LIGHT': {
+					set('LIGHT');
+					setLightTheme();
+					break;
+				}
+				default: {
+					const theme = preffersDarkTheme() ? 'DARK' : 'LIGHT';
+					set(theme);
+					theme === 'DARK' ? setDarkTheme() : setLightTheme();
+					localStorage.setItem(localStorageKey, theme);
+				}
+			}
+		}
+	});
+	return {
+		subscribe,
+		set(this: void, value: ColorTheme) {
+			set(value);
+			value === 'DARK' ? setDarkTheme() : setLightTheme();
+			localStorage.setItem(localStorageKey, value);
+		},
+		toggle(this: void) {
+			update((theme) => {
+				const newTheme = theme === 'DARK' ? 'LIGHT' : 'DARK';
+				newTheme === 'DARK' ? setDarkTheme() : setLightTheme();
+				localStorage.setItem(localStorageKey, newTheme);
+				return newTheme;
+			});
+		}
+	};
+}
+```
+
+Then I initialise it once in a seperate file so that **it is accessible everywhere in the app!**
 
 ```html
-<h1>Some HTML code I'm proud of</h1>
+<script>
+	import { theme } from '../stores';
+
+	$: themeIcon = $theme === 'DARK' ? 'bx-sun' : 'bx-moon';
+	$: themeText = $theme === 'DARK' ? 'Light' : 'Dark';
+</script>
+
+<button
+	class="flex items-center gap-3 | rounded-sm focus-ring focus:(dark:ring-offset-blue-700 ring-offset-gray-98 ring-offset-6)"
+	aria-label="toggle color theme"
+	aria-describedby="theme-toggler-label"
+	on:click="{theme.toggle}"
+>
+	<span class="sr-only" id="theme-toggler-label">
+		Change color theme from dark to light or light to dark
+	</span>
+	<i class="bx {themeIcon} text-lg" />
+	<span> {themeText} Theme </span>
+</button>
 ```
-```css
-.proud-of-this-css {
-  color: papayawhip;
+
+#### List Filtering
+
+Filtering the countries was **troublesome** since I wanted to do optimisations and I had faced this problem only once when I built a movies app using React and Redux (yuck!) and well... it kind of worked. So I didn't know how I would do this in Svelte but at the end of the day I decided that maybe I should just get the work done and don't worry about performance too much since the pagination I implemented improved it a ton! since Svelte has only to render **16** countries at once and the images are **lazy loaded!**
+
+```ts
+export function filterByName<T extends { name: string }>(countries: T[], name: string) {
+	return countries.filter((country) => country.name.includes(name));
+}
+
+export function filterByNameAndRegion<T extends { name: string; region: string }>(
+	countries: T[],
+	name: string,
+	region: string
+) {
+	return countries.filter((country) => country.region === region && country.name.includes(name));
+}
+
+export function filterByRegion<T extends { region: string }>(countries: T[], region: string) {
+	return countries.filter((country) => country.region === region);
+}
+
+$: {
+	if (lowerName || region) {
+		if (lowerName && region)
+			filteredCountries = filterByNameAndRegion(countries, lowerName, region);
+		else if (lowerName) filteredCountries = filterByName(countries, lowerName);
+		else if (region) filteredCountries = filterByRegion(countries, region);
+	} else filteredCountries = countries;
+}
+
+$: paginated = paginate({ items: filteredCountries, currentPage, pageSize: 16 });
+```
+
+Then I just render the paginated countries.
+
+```svelte
+{#each paginated as country, index (index)}
+	<li>
+		<Country {country} />
+	</li>
+{/each}
+```
+
+#### Pagination
+
+Yep. **I had to come up with a solution for the pagination**. I initilly tried to use a library for it but it was old and didn't have TypeScript support nor meet my styling spectations... so I had to go the hard way and get it done all on my own. Although I took a function from that library and improved it a little bit I guess. I used **Vitest** to make sure it worked properly, at least in a certain number of scenarios. I know it may need more testing and improvements but it works well enough and I am content.
+
+```ts
+export function getPages(configuration: {
+	currentPage: number;
+	totalPages: number;
+	limit?: number;
+}) {
+	let { currentPage, totalPages, limit } = configuration;
+
+	if (Math.ceil(totalPages) <= 0 || currentPage <= 0) return [1];
+
+	let start = 1;
+	let lastPage = Math.ceil(totalPages) + 1; // + 1 -> range max is exclusive
+
+	currentPage = currentPage > totalPages ? Math.ceil(totalPages) : currentPage;
+
+	if (limit === 0) return [currentPage];
+	if (typeof limit === 'number' && limit > 0) {
+		let limitLastPage = currentPage + limit + 1;
+		lastPage = limitLastPage > lastPage ? lastPage : limitLastPage;
+		let limitStart = currentPage - limit;
+		start = limitStart > 0 ? limitStart : 1;
+	}
+
+	if (currentPage === lastPage - 1) {
+		if (currentPage === 1) return range(start, lastPage);
+		return [...range(start, currentPage), currentPage];
+	}
+
+	if (currentPage === 1) {
+		return [currentPage, ...range(currentPage + 1, lastPage)];
+	}
+
+	return [...range(start, currentPage), currentPage, ...range(currentPage + 1, lastPage)];
+}
+
+export function paginate<T>(configuration: { items: T[]; currentPage: number; pageSize: number }) {
+	const { items, currentPage, pageSize } = configuration;
+	const totalPages = Math.ceil(items.length / pageSize);
+	if (currentPage >= totalPages) return items.slice((totalPages - 1) * pageSize);
+	return items.slice((currentPage - 1) * pageSize, (currentPage - 1) * pageSize + pageSize);
+}
+
+export function range(min: number, max: number) {
+	if (min === max) return [min];
+	return [...Array(Math.floor(max - min)).keys()].map((i) => i + min);
 }
 ```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+
+Import and paginate the filtered pages and pass it!
+
+```ts
+import { paginate } from '$lib/paginate';
+
+$: paginated = paginate({ items: filteredCountries, currentPage, pageSize: 16 });
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+```svelte
+<Pagination bind:currentPage items={filteredCountries} pageSize={16} />
+```
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+I made the pagination component renderless so that I can decide what I render. It only exposes core functions and variables.
 
-### Continued development
+```ts
+<script lang="ts">
+	import { getPages } from './';
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+	export let items: unknown[] = [];
+	export let currentPage = 1;
+	export let pageSize = 15;
+	export let limit: number | undefined = undefined;
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+	$: totalPages = Math.ceil(items.length / pageSize);
+	$: if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+	$: pages = getPages({ currentPage, totalPages, limit });
+
+	const go = {
+		first() {
+			currentPage = 1;
+		},
+		last() {
+			if (currentPage > 0) currentPage = totalPages;
+		},
+		next() {
+			if (currentPage < totalPages) currentPage++;
+		},
+		previous() {
+			if (currentPage > 1) currentPage--;
+		},
+		to(page: number) {
+			if (page > totalPages || page < 0) return;
+			currentPage = page;
+		}
+	};
+</script>
+
+{#if totalPages > 1}
+	<slot {go} {pages} {totalPages} />
+{/if}
+```
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [Sveltekit Docs](https://kit.svelte.dev/docs/introduction) - Always visit Sveltekit docs when in doubt.
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
+- Frontend Mentor - [@Shawn Lee](https://www.frontendmentor.io/profile/OGShawnLee)
 
 ## Acknowledgments
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- [Svelte Pagination](https://www.npmjs.com/package/svelte-paginate) - I took inspiration from here.
