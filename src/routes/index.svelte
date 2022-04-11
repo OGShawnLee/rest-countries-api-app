@@ -32,7 +32,6 @@
 </svelte:head>
 
 <main class="flex flex-col items-center gap-12">
-	<!-- TODO: ADD FILTERS -->
 	<Filters bind:name bind:region />
 	<div class="max-w-xs sm:(w-11/12 max-w-8xl) mx-auto | flex flex-col gap-12">
 		<section aria-labelledby="countries-section-label">
