@@ -1,3 +1,4 @@
+import colours from 'windicss/colors';
 import { defineConfig } from 'windicss/helpers';
 
 export default defineConfig({
@@ -13,6 +14,7 @@ export default defineConfig({
 				52: 'hsl(0, 0%, 52%)',
 				98: 'hsl(0, 0%, 98%)'
 			},
+			red: colours.red,
 			transparent: 'transparent',
 			white: 'hsl(0, 0%, 100%)'
 		},
