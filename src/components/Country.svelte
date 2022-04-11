@@ -2,7 +2,9 @@
 	export let country: CountryShort;
 </script>
 
-<article class="relative sm:h-108 | bg-blue-700 rounded-lg rounded-b-lg shadow-lg outline-none">
+<article
+	class="relative sm:h-108 | dark:bg-blue-700 bg-gray-98 rounded-lg rounded-b-lg shadow-lg outline-none"
+>
 	<img
 		class="h-40 w-full object-cover object-center rounded-t-lg hover:w-120 z-20"
 		src={country.flag}
@@ -16,19 +18,19 @@
 			<span class="sr-only" id="country-stats-label">{country.name} Stats</span>
 			<div class="flex gap-1">
 				<dt class="font-semibold">Population:</dt>
-				<dd class="text-white/80">
+				<dd class="dark:text-white/80">
 					{country.population}
 				</dd>
 			</div>
 			<div class="flex gap-1">
 				<dt class="font-semibold">Region:</dt>
-				<dd class="text-white/80">
+				<dd class="dark:text-white/80">
 					{country.region}
 				</dd>
 			</div>
 			<div class="flex gap-1">
 				<dt class="font-semibold">Capital:</dt>
-				<dd class="text-white/80">
+				<dd class="dark:text-white/80">
 					{country.capital || 'N/A'}
 				</dd>
 			</div>

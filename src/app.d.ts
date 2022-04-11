@@ -9,6 +9,8 @@ declare namespace App {
 	// interface Stuff {}
 }
 
+type ColorTheme = 'DARK' | 'LIGHT';
+
 interface Country {
 	name: string;
 	topLevelDomain: string[];

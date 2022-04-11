@@ -8,7 +8,9 @@
 </script>
 
 <Pagination {items} bind:currentPage {pageSize} {limit} let:pages let:go>
-	<div class="fixed bottom-0 h-12 left-0 right-0 | bg-blue-700 md:(static bg-transparent)">
+	<div
+		class="fixed bottom-0 h-12 left-0 right-0 | dark:bg-blue-700 bg-white md:(static bg-transparent)"
+	>
 		<div class="h-full w-11/12 max-w-md mx-auto | flex items-center justify-between gap-3">
 			<button on:click={go.first} aria-label="View first page">
 				<i class="bx bx-chevrons-left text-2xl" />

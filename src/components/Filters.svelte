@@ -37,22 +37,26 @@
 	aria-labelledby="filters-label"
 >
 	<span class="sr-only" id="filters-label">Countries Filters</span>
-	<div class="relative w-full md:max-w-lg | bg-blue-700 rounded-lg">
+	<div class="relative w-full md:max-w-lg | dark:bg-blue-700 bg-gray-98 rounded-lg">
 		<i
 			class="bx bx-search left-6 absolute transform bottom-1/2 translate-y-1/2 | text-lg pointer-events-none"
 		/>
 		<label class="sr-only" for="country-name">Country Name</label>
 		<input
-			class="w-full h-full py-4 pl-18 pr-8 | bg-transparent text-[13px] shadow-md"
+			class="w-full h-full py-4 pl-18 pr-8 | bg-transparent text-[13px] shadow-md light:placeholder-gray-52"
 			type="text"
 			bind:value={name}
 			id="country-name"
 			placeholder="Search for a country..."
 		/>
 	</div>
-	<div class="w-[fit-content] px-8 py-4 | bg-blue-700 rounded-lg shadow-md">
+	<div class="w-[fit-content] px-8 py-4 | dark:bg-blue-700 bg-gray-98 rounded-lg shadow-md">
 		<label class="sr-only" for="country-region">Filter by Region</label>
-		<select class="bg-blue-700 outline-none border-none" bind:value={region} id="country-region">
+		<select
+			class="dark:bg-blue-700 bg-gray-98 outline-none border-none"
+			bind:value={region}
+			id="country-region"
+		>
 			<option value={null}>All Regions</option>
 			{#each regions as region}
 				<option value={region}>{region}</option>

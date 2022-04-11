@@ -10,7 +10,7 @@
 <main class="max-w-xs sm:(w-11/12 max-w-8xl) mx-auto | flex flex-col gap-12">
 	<div>
 		<a
-			class="block w-[fit-content] px-8 py-2 | flex items-center justify-center gap-2 | bg-blue-700 rounded-lg shadow-md"
+			class="block w-[fit-content] px-8 py-2 | flex items-center justify-center gap-2 | dark:bg-blue-700 bg-gray-98 rounded-lg shadow-md"
 			href="/"
 			aria-describedby="go-back-label"
 		>
@@ -34,31 +34,31 @@
 					<dl class="flex flex-col gap-2">
 						<div class="flex gap-1">
 							<dt class="font-semibold">Native Name:</dt>
-							<dd class="text-white/80">
+							<dd class="dark:text-white/80">
 								{country.nativeName}
 							</dd>
 						</div>
 						<div class="flex gap-1">
 							<dt class="font-semibold">Population:</dt>
-							<dd class="text-white/80">
+							<dd class="dark:text-white/80">
 								{country.population}
 							</dd>
 						</div>
 						<div class="flex gap-1">
 							<dt class="font-semibold">Region:</dt>
-							<dd class="text-white/80">
+							<dd class="dark:text-white/80">
 								{country.region}
 							</dd>
 						</div>
 						<div class="flex gap-1">
 							<dt class="font-semibold">Sub Region:</dt>
-							<dd class="text-white/80">
+							<dd class="dark:text-white/80">
 								{country.subregion}
 							</dd>
 						</div>
 						<div class="flex gap-1">
 							<dt class="font-semibold">Capital:</dt>
-							<dd class="text-white/80">
+							<dd class="dark:text-white/80">
 								{country.capital || 'N/A'}
 							</dd>
 						</div>
@@ -66,13 +66,13 @@
 					<dl class="flex flex-col gap-2">
 						<div class="flex gap-1">
 							<dt class="font-semibold">Top Level Domain:</dt>
-							<dd class="text-white/80">
+							<dd class="dark:text-white/80">
 								{country.topLevelDomain}
 							</dd>
 						</div>
 						<div class="flex gap-1">
 							<dt class="font-semibold">Currencies:</dt>
-							<dd class="text-white/80">
+							<dd class="dark:text-white/80">
 								{#each country.currencies as currency}
 									<span>{currency.name}</span>
 								{/each}
@@ -80,7 +80,7 @@
 						</div>
 						<div class="flex gap-1">
 							<dt class="font-semibold">Languages:</dt>
-							<dd class="text-white/80">
+							<dd class="dark:text-white/80">
 								{#each country.languages as language}
 									<span> {language.name} </span>
 								{/each}
@@ -95,7 +95,7 @@
 							{#each borders as { alpha3Code, name }}
 								<li>
 									<a
-										class="block h-[fit-content] px-8 py-2 | bg-blue-700 rounded-lg shadow-md"
+										class="block h-[fit-content] px-8 py-2 | dark:bg-blue-700 bg-gray-98 rounded-lg shadow-md"
 										sveltekit:prefetch
 										href="/{alpha3Code}"
 									>
