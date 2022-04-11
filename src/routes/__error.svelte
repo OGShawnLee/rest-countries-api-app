@@ -20,6 +20,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Countries / {status}</title>
+</svelte:head>
+
 <!-- ! Header is still in the page! Tried to use a named layout for this page but it seems like error pages don't support it yet -->
 
 <div class="fixed inset-0 z-90 | flex items-center justify-center | bg-blue-900 text-white">
