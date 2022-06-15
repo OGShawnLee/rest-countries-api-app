@@ -13,7 +13,9 @@
 		height="160"
 	/>
 	<div class="pt-8 px-8 pb-14">
-		<h2 class="mb-4 | text-lg font-bold capitalize">{country.name}</h2>
+		<h2 class="mb-4 | text-lg font-bold capitalize">
+			{shortenString(country.name, 35)}
+		</h2>
 		<dl class="space-y-2">
 			<div class="flex gap-1">
 				<dt class="font-semibold">Population:</dt>
