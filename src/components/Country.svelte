@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { shortenString } from '$lib/utils';
+
 	export let country: CountryShort;
 </script>
 
 <article
-	class="relative sm:h-108 | dark:bg-blue-700 bg-gray-98 rounded-lg rounded-b-lg shadow-lg outline-none"
+	class="relative h-96 | dark:bg-blue-700 bg-gray-98 rounded-lg rounded-b-lg shadow-lg outline-none"
 >
 	<img
 		class="h-40 w-full object-cover object-center rounded-t-lg hover:w-120 z-20"
