@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { PageData } from "./$types";
 	import { Country, Pagination, Filters } from '../components';
 	import {
 		filterByName,
@@ -7,20 +8,20 @@
 	} from '../components/Filters.svelte';
 	import { paginate } from '$lib/paginate';
 
-	export let countries: CountryShort[];
+	export let data: PageData;
 
 	let name: string | null = null;
 	let region: string | null = null;
-	let filteredCountries = countries;
+	let filteredCountries = data.countries;
 
 	$: lowerName = name?.toLowerCase();
 	$: {
 		if (lowerName || region) {
 			if (lowerName && region)
-				filteredCountries = filterByNameAndRegion(countries, lowerName, region);
-			else if (lowerName) filteredCountries = filterByName(countries, lowerName);
-			else if (region) filteredCountries = filterByRegion(countries, region);
-		} else filteredCountries = countries;
+				filteredCountries = filterByNameAndRegion(data.countries, lowerName, region);
+			else if (lowerName) filteredCountries = filterByName(data.countries, lowerName);
+			else if (region) filteredCountries = filterByRegion(data.countries, region);
+		} else filteredCountries = data.countries;
 	}
 
 	let currentPage = 1;

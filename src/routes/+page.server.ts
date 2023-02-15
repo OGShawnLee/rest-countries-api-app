@@ -1,9 +1,9 @@
-import type { RequestHandler } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
+import { fail } from '@sveltejs/kit';
 import { fetchAllCountries } from '../api';
 import { numberWithCommas } from '$lib/utils';
 
-// @ts-ignore
-export const get: RequestHandler = async () => {
+export const load: PageServerLoad = async () => {
 	try {
 		const countries = await fetchAllCountries();
 
@@ -13,15 +13,8 @@ export const get: RequestHandler = async () => {
 			country.population = numberWithCommas(country.population);
 		}
 
-		return {
-			status: 200,
-			body: {
-				countries
-			}
-		};
+		return { countries };
 	} catch {
-		return {
-			status: 502
-		};
+		throw fail(502);
 	}
 };
