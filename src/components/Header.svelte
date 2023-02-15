@@ -1,5 +1,5 @@
 <script>
-	import { Switch, SwitchDescription, SwitchLabel } from 'malachite-ui/components';
+	import { SwitchGroup, Switch, SwitchDescription, SwitchLabel } from 'malachite-ui';
 	import { theme } from '../stores';
 
 	$: isDarkTheme = $theme === 'DARK';
@@ -15,17 +15,19 @@
 		>
 			Where in the world?
 		</a>
-		<Switch
-			class="flex items-center gap-3 | rounded-sm focus-ring focus:(dark:ring-offset-blue-700 ring-offset-gray-98 ring-offset-6) cursor-pointer"
-			checked={isDarkTheme}
-			on:click={theme.toggle}
-		>
+		<SwitchGroup class="flex items-center gap-3">
 			<SwitchLabel as="span" passive>{themeText} Theme</SwitchLabel>
 			<SwitchLabel as="span" class="sr-only">Toggle Color Theme</SwitchLabel>
-			<i class="bx {themeIcon} text-lg" />
 			<SwitchDescription class="sr-only">
 				Switch from Light to Dark Theme and vice versa
 			</SwitchDescription>
-		</Switch>
+			<Switch
+				class="rounded-sm focus-ring focus:(dark:ring-offset-blue-700 ring-offset-gray-98 ring-offset-6) cursor-pointer"
+				checked={isDarkTheme}
+				on:click={theme.toggle}
+			>
+				<i class="bx {themeIcon} text-lg" />
+			</Switch>
+		</SwitchGroup>
 	</div>
 </header>
