@@ -25,11 +25,28 @@
 		'Oceania',
 		'Polar'
 	];
+
 </script>
 
 <script lang="ts">
+	import {
+		Listbox,
+		ListboxButton,
+		ListboxLabel,
+		ListboxOption,
+		ListboxOptions
+	} from 'malachite-ui';
+	import { useClassNameResolver } from 'malachite-ui/hooks';
+	import { slide } from 'svelte/transition';
+
 	export let name: string | null;
 	export let region: string | null;
+
+	const className = useClassNameResolver<'ACTIVE' | 'SELECTED'>({
+		base: 'px-8 py-2 first:pt-4 last:pb-4 | flex items-center justify-between | cursor-pointer',
+		active: { off: 'dark:text-white/80', on: 'bg-gray-92 dark:(bg-blue-600 text-white)' },
+		selected: 'font-bold dark:text-white'
+	});
 </script>
 
 <section class="w-11/12 max-w-8xl mx-auto | flex flex-col md:flex-row gap-8 justify-between">
@@ -49,19 +66,33 @@
 			placeholder="Search for a country..."
 		/>
 	</div>
-	<div
-		class="w-[fit-content] px-8 py-4 | dark:bg-blue-700 bg-gray-98 rounded-lg shadow-md focus-within-ring"
-	>
-		<label class="sr-only" for="country-region">Filter by Region</label>
-		<select
-			class="dark:bg-blue-700 bg-gray-98 outline-none border-none"
-			bind:value={region}
-			id="country-region"
+	<Listbox class="relative" bind:value={region} infinite>
+		<ListboxLabel class="sr-only">Filter by Region</ListboxLabel>
+		<ListboxButton
+			class="w-[fit-content] px-8 py-4 | bg-gray-98 rounded-lg shadow-md focus-within-ring | dark:bg-blue-700 "
 		>
-			<option value={null}>All Regions</option>
-			{#each regions as region}
-				<option value={region}>{region}</option>
-			{/each}
-		</select>
-	</div>
+			{region || 'All Regions'}
+		</ListboxButton>
+		<div class="absolute top-18 right-0 z-80 | rounded-lg" slot="options" transition:slide|local>
+			<ListboxOptions
+				class="w-60 | bg-gray-98 shadow-xl rounded-lg overflow-hidden outline-none | dark:bg-blue-700"
+				static
+			>
+				<ListboxOption class={className} value={null} let:isSelected>
+					<span> All Regions </span>
+					{#if isSelected}
+						<i class="bx bxs-badge-check text-lg dark:text-white" />
+					{/if}
+				</ListboxOption>
+				{#each regions as region}
+					<ListboxOption class={className} value={region} let:isSelected>
+						<span> {region} </span>
+						{#if isSelected}
+							<i class="bx bxs-badge-check text-lg dark:text-white" />
+						{/if}
+					</ListboxOption>
+				{/each}
+			</ListboxOptions>
+		</div>
+	</Listbox>
 </section>
