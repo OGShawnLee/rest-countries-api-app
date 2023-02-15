@@ -16,7 +16,7 @@
 			Where in the world?
 		</a>
 		<SwitchGroup class="flex items-center gap-6">
-			<SwitchLabel as="span" passive>{themeText} Theme</SwitchLabel>
+			<SwitchLabel as="span" on:click={theme.toggle}>{themeText} Theme</SwitchLabel>
 			<SwitchLabel as="span" class="sr-only">Toggle Color Theme</SwitchLabel>
 			<SwitchDescription class="sr-only">
 				Switch from Light to Dark Theme and vice versa
