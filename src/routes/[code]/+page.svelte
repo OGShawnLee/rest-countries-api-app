@@ -1,10 +1,11 @@
 <script lang="ts">
-	export let country: CountryDetails;
-	export let borders: CountryBorder[];
+	import type { PageData } from './$types'
+
+	export let data: PageData
 </script>
 
 <svelte:head>
-	<title>Countries / {country.name}</title>
+	<title>Countries / {data.country.name}</title>
 </svelte:head>
 
 <main class="max-w-xs sm:(w-11/12 max-w-8xl) mx-auto | flex flex-col gap-12">
@@ -21,11 +22,11 @@
 	</div>
 
 	<div class="grid gap-12 lg:grid-cols-2 xl:gap-30">
-		<img src={country.flag} alt="{country.name} flag" />
+		<img src={data.country.flag} alt="{data.country.name} flag" />
 		<div class="flex flex-col justify-center">
 			<header class="mb-6">
 				<h1 class="text-xl md:text-2xl font-extrabold capitalize">
-					{country.name}
+					{data.country.name}
 				</h1>
 			</header>
 			<section class="flex flex-col gap-12">
@@ -35,31 +36,31 @@
 						<div class="flex gap-1">
 							<dt class="font-semibold">Native Name:</dt>
 							<dd class="dark:text-white/80">
-								{country.nativeName}
+								{data.country.nativeName}
 							</dd>
 						</div>
 						<div class="flex gap-1">
 							<dt class="font-semibold">Population:</dt>
 							<dd class="dark:text-white/80">
-								{country.population}
+								{data.country.population}
 							</dd>
 						</div>
 						<div class="flex gap-1">
 							<dt class="font-semibold">Region:</dt>
 							<dd class="dark:text-white/80">
-								{country.region}
+								{data.country.region}
 							</dd>
 						</div>
 						<div class="flex gap-1">
 							<dt class="font-semibold">Sub Region:</dt>
 							<dd class="dark:text-white/80">
-								{country.subregion}
+								{data.country.subregion}
 							</dd>
 						</div>
 						<div class="flex gap-1">
 							<dt class="font-semibold">Capital:</dt>
 							<dd class="dark:text-white/80">
-								{country.capital || 'N/A'}
+								{data.country.capital || 'N/A'}
 							</dd>
 						</div>
 					</dl>
@@ -67,13 +68,13 @@
 						<div class="flex gap-1">
 							<dt class="font-semibold">Top Level Domain:</dt>
 							<dd class="dark:text-white/80">
-								{country.topLevelDomain}
+								{data.country.topLevelDomain}
 							</dd>
 						</div>
 						<div class="flex gap-1">
 							<dt class="font-semibold">Currencies:</dt>
 							<dd class="dark:text-white/80">
-								{#each country.currencies as currency}
+								{#each data.country.currencies as currency}
 									<span>{currency.name}</span>
 								{/each}
 							</dd>
@@ -81,18 +82,18 @@
 						<div class="flex gap-1">
 							<dt class="font-semibold">Languages:</dt>
 							<dd class="dark:text-white/80">
-								{#each country.languages as language}
+								{#each data.country.languages as language}
 									<span> {language.name} </span>
 								{/each}
 							</dd>
 						</div>
 					</dl>
 				</div>
-				{#if borders.length}
+				{#if data.borders.length}
 					<section class="space-y-3">
 						<h2 class="text-lg font-semibold">Border Countries</h2>
 						<ul class="flex flex-wrap item-center gap-3">
-							{#each borders as { alpha3Code, name }}
+							{#each data.borders as { alpha3Code, name }}
 								<li>
 									<a
 										class="block h-[fit-content] px-8 py-2 | dark:bg-blue-700 bg-gray-98 rounded-lg shadow-md focus-ring"
