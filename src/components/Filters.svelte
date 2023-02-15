@@ -73,7 +73,7 @@
 		>
 			{region || 'All Regions'}
 		</ListboxButton>
-		<div class="absolute top-18 right-0 z-80 | rounded-lg" slot="options" transition:slide|local>
+		<div class="absolute top-18 left-0 z-80 | rounded-lg | md:(left-auto right-0)" slot="options" transition:slide|local>
 			<ListboxOptions
 				class="w-60 | bg-gray-98 shadow-xl rounded-lg overflow-hidden outline-none | dark:bg-blue-700"
 				static
