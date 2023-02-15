@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { numberWithCommas } from '$lib/utils';
-import { fetchAllCountryBordersByAlpha3Code, fetchCountryByAlpha3Code } from '../api';
+import { fetchAllCountryBordersByAlpha3Code, fetchCountryByAlpha3Code } from '../../api';
 
 // @ts-ignore
 export const get: RequestHandler = async ({ params: { code } }) => {
