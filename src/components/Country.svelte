@@ -38,7 +38,7 @@
 				</dd>
 			</div>
 		</dl>
-		<a sveltekit:prefetch href="/{country.alpha3Code}">
+		<a href="/{country.alpha3Code}">
 			<span class="sr-only">
 				View {country.name} details
 			</span>

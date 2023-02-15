@@ -97,7 +97,6 @@
 								<li>
 									<a
 										class="block h-[fit-content] px-8 py-2 | dark:bg-blue-700 bg-gray-98 rounded-lg shadow-md focus-ring"
-										sveltekit:prefetch
 										href="/{alpha3Code}"
 									>
 										{name}
