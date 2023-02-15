@@ -1,15 +1,6 @@
-<script lang="ts" context="module">
-	import type { ErrorLoad } from '@sveltejs/kit';
-
-	export const load: ErrorLoad = ({ status }) => {
-		return { props: { status } };
-	};
-</script>
-
 <script lang="ts">
 	import { onMount } from 'svelte';
-
-	export let status: number;
+	import { page } from '$app/stores';
 
 	onMount(() => {
 		const header = document.getElementsByTagName('header')[0];
@@ -21,7 +12,7 @@
 </script>
 
 <svelte:head>
-	<title>Countries / {status}</title>
+	<title>Countries / {$page.status}</title>
 </svelte:head>
 
 <!-- ! Header is still in the page! Tried to use a named layout for this page but it seems like error pages don't support it yet -->
@@ -38,13 +29,13 @@
 			<p class="text-white/80">
 				Oh no! Anyways, why don't you try to
 				<span class="font-semibold text-white underline">
-					<a sveltekit:prefetch href="/">load the home page</a>?
+					<a href="/">load the home page</a>?
 				</span>
 			</p>
 		</div>
 		<div class="xl:(col-span-1 justify-self-end)">
 			<span class="text-white/40 text-10xl font-semibold | md:text-15xl xl:text-20xl">
-				{status}
+				{$page.status}
 			</span>
 		</div>
 	</div>
