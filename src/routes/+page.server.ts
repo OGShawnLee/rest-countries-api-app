@@ -3,7 +3,7 @@ import { fail } from '@sveltejs/kit';
 import { fetchAllCountries } from '../api';
 import { numberWithCommas } from '$lib/utils';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ setHeaders }) => {
 	try {
 		const countries = await fetchAllCountries();
 
@@ -13,6 +13,7 @@ export const load: PageServerLoad = async () => {
 			country.population = numberWithCommas(country.population);
 		}
 
+		setHeaders({ 'cache-control': 'max-age=360' });
 		return { countries };
 	} catch {
 		throw fail(502);
