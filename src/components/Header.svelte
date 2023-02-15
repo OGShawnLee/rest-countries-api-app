@@ -15,7 +15,7 @@
 		>
 			Where in the world?
 		</a>
-		<SwitchGroup class="flex items-center gap-3">
+		<SwitchGroup class="flex items-center gap-6">
 			<SwitchLabel as="span" passive>{themeText} Theme</SwitchLabel>
 			<SwitchLabel as="span" class="sr-only">Toggle Color Theme</SwitchLabel>
 			<SwitchDescription class="sr-only">
