@@ -11,6 +11,9 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
 		"test": "vitest"
 	},
+	"engines": {
+		"node": "^16.14 || >=18"
+	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.6.0",
