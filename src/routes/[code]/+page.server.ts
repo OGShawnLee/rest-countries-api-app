@@ -1,4 +1,4 @@
-import type { PageServerLoad } from '/$types';
+import type { PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
 import { numberWithCommas } from '$lib/utils';
 import { fetchAllCountryBordersByAlpha3Code, fetchCountryByAlpha3Code } from '../../api';
